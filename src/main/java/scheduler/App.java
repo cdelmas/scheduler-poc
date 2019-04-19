@@ -29,15 +29,11 @@ public class App {
         System.out.println("####### SOLVING #######");
 
         Solver<Schedule> solver = solverFactory.buildSolver();
-        solver.addEventListener(event -> {
-            Schedule newBestSolution = event.getNewBestSolution();
-            System.out.println("####### NEW BEST SOLUTION FOUND: " + newBestSolution);
-        });
         Schedule solution = solver.solve(problem);
 
         System.out.println("####### FINISHED SOLVING #######");
 
-        System.out.println("#######" + solution.hashCode() + "=" + solution);
+        System.out.println("#######" + "=" + solution);
     }
 
     private static Schedule createSchedule() {

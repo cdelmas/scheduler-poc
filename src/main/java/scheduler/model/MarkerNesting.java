@@ -6,7 +6,6 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableGraphType;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @PlanningEntity // TODO: check whether a difficulty comparator is useful? See 4.3.3.2
 public class MarkerNesting implements TaskChainLink {
@@ -20,7 +19,6 @@ public class MarkerNesting implements TaskChainLink {
     private MarkerNesting nextMarkerNesting;
 
     public MarkerNesting() {
-        System.out.println("####### new Nesting="+System.identityHashCode(this)); // TODO: DELETE
     }
 
     public MarkerNesting(Long id, Marker marker) {
@@ -34,7 +32,6 @@ public class MarkerNesting implements TaskChainLink {
     }
 
     public void setPreviousTaskChainLink(TaskChainLink previousTaskChainLink) {
-        System.out.println("####### "+this+".setPreviousTaskChainLink("+previousTaskChainLink+")");
         this.previousTaskChainLink = previousTaskChainLink;
     }
 
@@ -45,7 +42,6 @@ public class MarkerNesting implements TaskChainLink {
     }
 
     public void setVirtualMachine(VirtualMachine virtualMachine) {
-        System.out.println("####### "+this+".setVirtualMachine("+virtualMachine+")");
         this.virtualMachine = virtualMachine;
     }
 
@@ -54,7 +50,6 @@ public class MarkerNesting implements TaskChainLink {
     }
 
     public void setId(Long id) {
-        System.out.println("####### "+this+".setId("+id+")");
         this.id = id;
     }
 
@@ -65,7 +60,6 @@ public class MarkerNesting implements TaskChainLink {
 
     @Override
     public void setNextMarkerNesting(MarkerNesting nextMarkerNesting) {
-        System.out.println("####### "+this+".setNextMarkerNesting("+nextMarkerNesting+")");
         this.nextMarkerNesting = nextMarkerNesting;
     }
 
@@ -99,6 +93,6 @@ public class MarkerNesting implements TaskChainLink {
 
     @Override
     public String toString() {
-        return "[Nesting(" + id + "/" + System.identityHashCode(this) + ")/" + marker + "]";
+        return "[Nesting(" + id + ")/" + marker + "]";
     }
 }

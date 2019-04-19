@@ -1,9 +1,12 @@
 package scheduler.model;
 
 
+import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@DeepPlanningClone
 public class Pool {
     private List<VirtualMachine> machines = new ArrayList<>();
 

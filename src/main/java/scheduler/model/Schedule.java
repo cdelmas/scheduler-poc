@@ -20,7 +20,6 @@ public class Schedule {
     private List<MarkerNesting> markerNestings;
 
     public Schedule() {
-        System.out.println("####### new Schedule="+System.identityHashCode(this)); // TODO: DELETE
     }
 
     public List<Pool> getPools() {
@@ -59,8 +58,7 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Solution: " + System.identityHashCode(this) +
-                '\n' +
+        return "Solution: " +
                 score +
                 '\n' +
                 getVirtualMachines().stream().map(Schedule::machineChainAsString).collect(joining("\n"));
