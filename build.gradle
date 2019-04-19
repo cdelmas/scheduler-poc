@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+dependencies {
+    implementation 'org.optaplanner:optaplanner-core:7.20.0.Final'
+
+    runtime 'ch.qos.logback:logback-classic:1.2.3'
+    
+    testImplementation 'junit:junit:4.12'
+}
+
+mainClassName = 'scheduler.App'
