@@ -5,6 +5,7 @@ package scheduler;
 
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.config.solver.recaller.BestSolutionRecallerConfig;
 import scheduler.model.*;
 
 import java.security.SecureRandom;
@@ -28,6 +29,10 @@ public class App {
         System.out.println("####### SOLVING #######");
 
         Solver<Schedule> solver = solverFactory.buildSolver();
+        solver.addEventListener(event -> {
+            Schedule newBestSolution = event.getNewBestSolution();
+            System.out.println("####### NEW BEST SOLUTION FOUND: " + newBestSolution);
+        });
         Schedule solution = solver.solve(problem);
 
         System.out.println("####### FINISHED SOLVING #######");

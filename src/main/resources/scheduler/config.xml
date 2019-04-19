@@ -6,6 +6,8 @@
         <packageInclude>scheduler</packageInclude>
     </scanAnnotatedClasses>
 
+    <!--environmentMode>NON_INTRUSIVE_FULL_ASSERT</environmentMode-->
+
     <scoreDirectorFactory>
         <easyScoreCalculatorClass>scheduler.solver.ScheduleScoreCalculator</easyScoreCalculatorClass>
         <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>

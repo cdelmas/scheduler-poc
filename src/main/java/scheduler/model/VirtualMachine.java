@@ -1,10 +1,13 @@
 package scheduler.model;
 
+import org.optaplanner.core.api.domain.solution.cloner.DeepPlanningClone;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@DeepPlanningClone
 public class VirtualMachine implements TaskChainLink {
     private Long id;
     private Pool belongsTo;

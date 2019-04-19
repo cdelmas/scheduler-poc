@@ -59,7 +59,8 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Solution: " +
+        return "Solution: " + System.identityHashCode(this) +
+                '\n' +
                 score +
                 '\n' +
                 getVirtualMachines().stream().map(Schedule::machineChainAsString).collect(joining("\n"));
