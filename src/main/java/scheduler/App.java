@@ -5,7 +5,6 @@ package scheduler;
 
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.core.config.solver.recaller.BestSolutionRecallerConfig;
 import scheduler.model.*;
 
 import java.security.SecureRandom;
