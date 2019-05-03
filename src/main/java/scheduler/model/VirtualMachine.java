@@ -9,6 +9,7 @@ public class VirtualMachine implements TaskChainLink {
     private Pool belongsTo;
     private MarkerNesting nextMarkerNesting;
     private boolean started;
+    private LocalDateTime endTime;
 
     public VirtualMachine() {
     }
@@ -21,11 +22,26 @@ public class VirtualMachine implements TaskChainLink {
     public List<MarkerNesting> getRunningTasks() {
         List<MarkerNesting> runningTasks = new ArrayList<>();
         MarkerNesting nesting = nextMarkerNesting;
-        while(nesting != null) {
+        while (nesting != null) {
             runningTasks.add(nesting);
             nesting = nesting.getNextMarkerNesting();
         }
         return runningTasks;
+    }
+
+    public List<Slot> getScheduleSlots() {
+        return io.vavr.collection.List.ofAll(getRunningTasks()).foldLeft(io.vavr.collection.List.of(Slot.oneHourSlot(getEndTime())), (acc, nesting) -> {
+            // assign Nesting to a Slot
+            Slot lastSlot = acc.last();
+            if (lastSlot.getEndTime().isBefore(nesting.getEndTime())) { // isInSlot
+                lastSlot.addTask(nesting);
+                return acc;
+            } else { // create a new slot, and assign nesting
+                Slot newSlot = Slot.oneHourSlot(lastSlot.getEndTime());
+                newSlot.addTask(nesting);
+                return acc.append(newSlot);
+            }
+        }).asJava();
     }
 
     public Long getId() {
@@ -54,13 +70,21 @@ public class VirtualMachine implements TaskChainLink {
 
     @Override
     public LocalDateTime getEndTime() {
-        LocalDateTime now = LocalDateTime.now();
-        return isStarted() ? now : now.plusMinutes(10);
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
     public VirtualMachine getVirtualMachine() {
         return this;
+    }
+
+    @Override
+    public TaskChainLink getPreviousTaskChainLink() {
+        return null;
     }
 
     @Override
@@ -75,7 +99,10 @@ public class VirtualMachine implements TaskChainLink {
 
     @Override
     public String toString() {
-        return "[VM " + id + "]";
+        return "[VM " + id + "|" + endTime + "]";
     }
 
+    public void setTime(LocalDateTime startOfTime) {
+        endTime = startOfTime.plusMinutes(isStarted() ? 0 : 10);
+    }
 }

@@ -1,9 +1,8 @@
 package scheduler.model;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
-import org.optaplanner.core.api.domain.variable.AnchorShadowVariable;
-import org.optaplanner.core.api.domain.variable.PlanningVariable;
-import org.optaplanner.core.api.domain.variable.PlanningVariableGraphType;
+import org.optaplanner.core.api.domain.variable.*;
+import scheduler.solver.NestingDatesUpdater;
 
 import java.time.LocalDateTime;
 
@@ -27,6 +26,7 @@ public class MarkerNesting implements TaskChainLink {
     }
 
     @PlanningVariable(valueRangeProviderRefs = {"vms", "nestings"}, graphType = PlanningVariableGraphType.CHAINED)
+    @Override
     public TaskChainLink getPreviousTaskChainLink() {
         return previousTaskChainLink;
     }
@@ -63,12 +63,12 @@ public class MarkerNesting implements TaskChainLink {
         this.nextMarkerNesting = nextMarkerNesting;
     }
 
-    // TODO: see StartTimeUpdatingVariableListener in Task Assigning example
-    //@CustomShadowVariable(variableListenerClass = StartEndTimeTaskUpdate.class, sources = { @PlanningVariableReference(variableName = "previousTaskChainLink" })
+    @CustomShadowVariable(variableListenerClass = NestingDatesUpdater.class, sources = { @PlanningVariableReference(variableName = "previousTaskChainLink") })
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    @CustomShadowVariable(variableListenerRef = @PlanningVariableReference(variableName = "startTime"))
     @Override
     public LocalDateTime getEndTime() {
         return endTime;
@@ -76,6 +76,11 @@ public class MarkerNesting implements TaskChainLink {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public void setTime(LocalDateTime startTime) {
+        setStartTime(startTime);
+        setEndTime(startTime.plusSeconds(marker.getDuration()));
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -93,6 +98,6 @@ public class MarkerNesting implements TaskChainLink {
 
     @Override
     public String toString() {
-        return "[Nesting(" + id + ")/" + marker + "]";
+        return "[Nesting(" + id + ")/" + marker + "||| time: " + startTime + " -> " + endTime + "]";
     }
 }

@@ -46,4 +46,12 @@ public class Tenant {
     public void setMarkerLists(List<MarkerList> markerLists) {
         this.markerLists = markerLists;
     }
+
+    public boolean owns(MarkerNesting t) {
+        return t.getMarker().getBelongsTo().getOwner().getName().equals(name); // maybe another impl?
+    }
+
+    public long totalNestingOwned() {
+        return getMarkerLists().stream().mapToLong(MarkerList::size).sum();
+    }
 }

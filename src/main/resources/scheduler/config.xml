@@ -16,7 +16,7 @@
     <termination>
         <!--minutesSpentLimit>2</minutesSpentLimit-->
         <!--secondsSpentLimit>10</secondsSpentLimit-->
-        <millisecondsSpentLimit>500</millisecondsSpentLimit>
+        <millisecondsSpentLimit>5500</millisecondsSpentLimit>
     </termination>
     <constructionHeuristic>
         <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>

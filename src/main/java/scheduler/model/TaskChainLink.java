@@ -11,6 +11,8 @@ public interface TaskChainLink {
     // can be null
     VirtualMachine getVirtualMachine();
 
+    TaskChainLink getPreviousTaskChainLink();
+
     @InverseRelationShadowVariable(sourceVariableName = "previousTaskChainLink")
     MarkerNesting getNextMarkerNesting();
 

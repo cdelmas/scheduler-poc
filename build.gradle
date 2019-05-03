@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation 'org.optaplanner:optaplanner-core:7.20.0.Final'
+    implementation 'io.vavr:vavr:0.10.0'
 
     runtime 'ch.qos.logback:logback-classic:1.2.3'
     

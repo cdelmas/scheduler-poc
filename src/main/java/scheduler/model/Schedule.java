@@ -7,6 +7,7 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoftlong.HardSoftLongScore;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 @PlanningSolution
 public class Schedule {
 
+    private LocalDateTime startOfTime;
     private HardSoftLongScore score;
     private List<Pool> pools;
     private List<MarkerNesting> markerNestings;
@@ -55,7 +57,6 @@ public class Schedule {
         this.score = score;
     }
 
-
     @Override
     public String toString() {
         return "Solution: " +
@@ -72,5 +73,13 @@ public class Schedule {
             nesting = nesting.getNextMarkerNesting();
         }
         return toStr;
+    }
+
+    public void setStartOfTime(LocalDateTime startOfTime) {
+        this.startOfTime = startOfTime;
+    }
+
+    public LocalDateTime getStartOfTime() {
+        return startOfTime;
     }
 }

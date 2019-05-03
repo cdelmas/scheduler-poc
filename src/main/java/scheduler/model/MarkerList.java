@@ -50,4 +50,8 @@ public class MarkerList {
     public String toString() {
         return "MarkerList " + name + "/" + owner.getName() + " (" + markers.size() + " markers)";
     }
+
+    public long size() {
+        return markers.size();
+    }
 }
