@@ -48,7 +48,7 @@ public class App {
         Random random = new SecureRandom();
         Set<Long> ids = new TreeSet<>();
 
-        List<MarkerNesting> nestings = Stream.range(0, 5).map(i -> createList("list" + i, random.nextInt(4) + 1, tenant1, 1)).flatMap(MarkerList::getMarkers).map(m -> {
+        List<MarkerNesting> nestings = Stream.range(0, 10).map(i -> createList("list" + i, random.nextInt(10) + 1, tenant1, 1)).flatMap(MarkerList::getMarkers).map(m -> {
             Long id = nextId(random, ids);
             return new MarkerNesting(id, m);
         }).collect(toList());
@@ -84,13 +84,13 @@ public class App {
         VirtualMachine machine = problem.getPools().get(0).getMachines().get(0);
         List<MarkerNesting> markerNestings = problem.getMarkerNestings();
         markerNestings.get(0).setPreviousTaskChainLink(machine);
-        markerNestings.get(0).setTime(machine.getEndTime());
+        markerNestings.get(0).setStartTime(machine.getEndTime());
         markerNestings.get(0).setVirtualMachine(machine);
         machine.setNextMarkerNesting(markerNestings.get(0));
         for (int i = 1; i < markerNestings.size(); i++) {
             MarkerNesting prev = markerNestings.get(i - 1);
             MarkerNesting current = markerNestings.get(i);
-            current.setTime(prev.getEndTime());
+            current.setStartTime(prev.getEndTime());
             current.setVirtualMachine(machine);
             prev.setNextMarkerNesting(current);
             current.setPreviousTaskChainLink(prev);

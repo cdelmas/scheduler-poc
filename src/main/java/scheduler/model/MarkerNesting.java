@@ -6,11 +6,10 @@ import scheduler.solver.NestingDatesUpdater;
 
 import java.time.LocalDateTime;
 
-@PlanningEntity // TODO: check whether a difficulty comparator is useful? See 4.3.3.2
+@PlanningEntity
 public class MarkerNesting implements TaskChainLink {
     private Long id;
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
     private Marker marker;
     private VirtualMachine virtualMachine;
 
@@ -68,25 +67,14 @@ public class MarkerNesting implements TaskChainLink {
         return startTime;
     }
 
-    @CustomShadowVariable(variableListenerRef = @PlanningVariableReference(variableName = "startTime"))
     @Override
     public LocalDateTime getEndTime() {
-        return endTime;
+        return getStartTime().plusSeconds(marker.getDuration());
     }
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
-
-    public void setTime(LocalDateTime startTime) {
-        setStartTime(startTime);
-        setEndTime(startTime.plusSeconds(marker.getDuration()));
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
 
     public Marker getMarker() {
         return marker;
@@ -98,6 +86,6 @@ public class MarkerNesting implements TaskChainLink {
 
     @Override
     public String toString() {
-        return "[Nesting(" + id + ")/" + marker + "||| time: " + startTime + " -> " + endTime + "]";
+        return "[Nesting(" + id + ")/" + marker + "||| time: " + getStartTime() + " -> " + getEndTime() + "]";
     }
 }

@@ -1,6 +1,7 @@
 package scheduler.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Slot {
@@ -8,7 +9,7 @@ public class Slot {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private List<MarkerNesting> tasks;
+    private List<MarkerNesting> tasks = new ArrayList<>();
 
     public static Slot oneHourSlot(LocalDateTime startTime) {
         return new Slot(startTime, 1);

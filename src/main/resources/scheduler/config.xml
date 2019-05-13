@@ -16,38 +16,6 @@
     <termination>
         <!--minutesSpentLimit>2</minutesSpentLimit-->
         <!--secondsSpentLimit>10</secondsSpentLimit-->
-        <millisecondsSpentLimit>5500</millisecondsSpentLimit>
+        <millisecondsSpentLimit>30000</millisecondsSpentLimit>
     </termination>
-    <constructionHeuristic>
-        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
-    </constructionHeuristic>
-    <localSearch>
-        <unionMoveSelector>
-            <changeMoveSelector>
-                <cacheType>STEP</cacheType>
-                <selectionOrder>SHUFFLED</selectionOrder>
-            </changeMoveSelector>
-            <!--<swapMoveSelector>-->
-            <!--<cacheType>PHASE</cacheType>-->
-            <!--<selectionOrder>SHUFFLED</selectionOrder>-->
-            <!--</swapMoveSelector>-->
-            <tailChainSwapMoveSelector/>
-            <subChainChangeMoveSelector>
-                <subChainSelector>
-                    <maximumSubChainSize>50</maximumSubChainSize>
-                </subChainSelector>
-                <selectReversingMoveToo>true</selectReversingMoveToo>
-            </subChainChangeMoveSelector>
-            <!--<subChainSwapMoveSelector>-->
-            <!--<selectReversingMoveToo>false</selectReversingMoveToo>-->
-            <!--</subChainSwapMoveSelector>-->
-            <!-- TODO use nearby selection to scale out -->
-        </unionMoveSelector>
-        <acceptor>
-            <lateAcceptanceSize>400</lateAcceptanceSize>
-        </acceptor>
-        <forager>
-            <acceptedCountLimit>1</acceptedCountLimit>
-        </forager>
-    </localSearch>
 </solver>
