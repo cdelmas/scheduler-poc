@@ -16,7 +16,7 @@ public class ScheduleScoreCalculator implements EasyScoreCalculator<Schedule> {
 
     @Override
     public Score calculateScore(Schedule schedule) {
-       /* List<VirtualMachine> machines = schedule.getVirtualMachines();
+        List<VirtualMachine> machines = schedule.getVirtualMachines();
 
         long notStartedMachinesUsedPenalty = machines.stream().mapToLong(m -> m.isStarted() ? 0 : -100).sum();
 
@@ -39,8 +39,8 @@ public class ScheduleScoreCalculator implements EasyScoreCalculator<Schedule> {
                     return overRequirement > 0 ? t.getNumberOfMarkersGuarantedPerHour() - actualNumberOfMarkersNextHour : 0;
                 }).sum() * -1;
 
-        return HardSoftLongScore.of(slaPenalty, notStartedMachinesUsedPenalty + missedDeadlinePenalty);*/
-       return computeUselessScore(schedule.getVirtualMachines());
+        return HardSoftLongScore.of(slaPenalty, notStartedMachinesUsedPenalty + missedDeadlinePenalty);
+        // return computeUselessScore(schedule.getVirtualMachines());
     }
 
     private Score computeUselessScore(List<VirtualMachine> machines) {

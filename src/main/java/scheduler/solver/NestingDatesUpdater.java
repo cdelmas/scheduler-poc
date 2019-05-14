@@ -6,8 +6,6 @@ import scheduler.model.MarkerNesting;
 import scheduler.model.TaskChainLink;
 import scheduler.model.VirtualMachine;
 
-import java.time.LocalDateTime;
-
 public class NestingDatesUpdater extends VariableListenerAdapter<TaskChainLink> {
 
     @Override
@@ -44,7 +42,7 @@ public class NestingDatesUpdater extends VariableListenerAdapter<TaskChainLink> 
             MarkerNesting current = (MarkerNesting) taskChainLink;
             while (current != null) {
                 scoreDirector.beforeVariableChanged(current, "startTime");
-                current.setStartTime(taskChainLink.getPreviousTaskChainLink().getEndTime());
+                current.setStartTime(current.getPreviousTaskChainLink().getEndTime());
                 scoreDirector.afterVariableChanged(current, "startTime");
                 current = current.getNextMarkerNesting();
             }
